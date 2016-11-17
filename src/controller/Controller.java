@@ -1,13 +1,13 @@
 package controller;
 
-import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Controller extends Thread {
     private static Controller instance;
-    private static Queue<Command> commands;
+    private static ConcurrentLinkedQueue<Command> commands;
     
-    private Controller () {
-        commands = new Queue<Command>();   
+    private Controller() {
+        commands = new ConcurrentLinkedQueue<Command>();   
     }
     
     public void run() {
@@ -16,11 +16,29 @@ public class Controller extends Thread {
                 commands.remove().handle();
             }
             try {
-                sleep(10000);
+                sleep(3600000);
             } catch (InterruptedException e) {}
         }
     }
     
-    public int command
+    public static void init() {
+        if (instance == null) {
+            instance = new Controller();
+            instance.start();
+        }
+    }
+    
+    public static int doCommand(Command command) {
+        if (instance == null)
+            init();
+        instance.addCommand(command);
+        instance.interrupt();
+        return 0;
+    }
+
+    private void addCommand(Command command) {
+        // TODO Auto-generated method stub
+        
+    }
 
 }

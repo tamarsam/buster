@@ -8,7 +8,7 @@ public class Scheduler extends Thread {
     private Queue<Phase> phases;
     
     private Scheduler() {
-        phases = new Queue<Phase>();
+        //phases = new Queue<Phase>();
     }
     
     public static Scheduler getInstance() {

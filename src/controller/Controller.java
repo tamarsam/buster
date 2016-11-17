@@ -2,9 +2,13 @@ package controller;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import view.View;
+
 public class Controller extends Thread {
     private static Controller instance;
     private static ConcurrentLinkedQueue<Command> commands;
+    
+    private View view;
     
     private Controller() {
         commands = new ConcurrentLinkedQueue<Command>();   
@@ -37,7 +41,7 @@ public class Controller extends Thread {
     }
 
     private void addCommand(Command command) {
-        // TODO Auto-generated method stub
+        commands.add(command);
         
     }
 
